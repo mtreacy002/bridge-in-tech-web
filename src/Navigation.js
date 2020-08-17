@@ -6,7 +6,9 @@ import DropdownMenu from "react-bootstrap/DropdownMenu";
 
 
 export default function Navigation() {
-    const { user, isAuth, login, logout } = useContext(AuthContext);
+    const { user, isAuth, login, logout, isRepresentative } = useContext(AuthContext);
+    console.log("isAuth is", isAuth)
+    console.log("isRep is", isRepresentative)
     
     return (
         <Navbar bg="light" expand="lg">
@@ -49,6 +51,15 @@ export default function Navigation() {
                         <Accordion>
                             <Card>
                                 <Card.Header>
+                                    <Accordion.Toggle as={Link} to="/organizations" eventKey="0">Organizations</Accordion.Toggle>
+                                </Card.Header>
+                            </Card>
+                        </Accordion>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Accordion>
+                            <Card>
+                                <Card.Header>
                                     <Accordion.Toggle as={Link} eventKey="0">My Space</Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0">
@@ -68,6 +79,27 @@ export default function Navigation() {
                             </Card>
                         </Accordion>
                     </Nav.Item>
+                    {isRepresentative?
+                    <>
+                    <Nav.Item>
+                        <Accordion>
+                            <Card>
+                                <Card.Header>
+                                    <Accordion.Toggle as={Link} eventKey="0">MyOrganization</Accordion.Toggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="0">
+                                    <Nav>
+                                        <Nav.Link as={Link} to="/organization-portfolio">Portfolio</Nav.Link>
+                                        <Nav.Link as={Link} to="/organization-profile">Profile</Nav.Link>
+                                    </Nav>
+                                </Accordion.Collapse>
+                            </Card>
+                        </Accordion>
+                    </Nav.Item>
+                    </>
+                    :
+                    <></>
+                    }
                 </Nav>
                 <Nav className="mr-sm-2">
                     {!isAuth ?
