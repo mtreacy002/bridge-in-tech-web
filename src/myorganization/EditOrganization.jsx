@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../AuthContext";
-import { BASE_API } from "../config";
-import "./Organization.css";
-import { SERVICE_UNAVAILABLE_ERROR } from "../messages";
-import { TIMEZONES, STATUS } from "../enums";
+import React, {useState, useEffect, useContext} from "react";
+import {AuthContext} from "../AuthContext";
+import {BASE_API} from "../config";
+import "./EditOrganization.css";
+import {SERVICE_UNAVAILABLE_ERROR} from "../messages";
+import {TIMEZONES, STATUS} from "../enums";
 
-export default function OrganizationProfile() {
+export default function EditOrganization() {
   const [responseMessage, setResponseMessage] = useState(null);
-  const [organizationProfile, setOrganizationProfile] = useState({});
-  const { access_token } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("Loading");
+  const [organization, setOrganization] = useState({});
+  const {access_token} = useContext(AuthContext);
   const [isValidPhone, setIsValidPhone] = useState(true);
-  
 
-  const requestOrganizationProfile = {
+
+  const requestOrganization = {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${access_token}`,
@@ -22,15 +23,18 @@ export default function OrganizationProfile() {
   };
 
   useEffect(() => {
-    fetch(`${BASE_API}/organization`, requestOrganizationProfile)
+    fetch(`${BASE_API}/organization`, requestOrganization)
       .then(async response => {
         const data = await response.json();
-        if (response.ok)
-          return setOrganizationProfile(data);
-        return setResponseMessage(data.message);
+        if (response.ok) {
+          setOrganization(data);
+          setErrorMessage(null);
+          return;
+        }
+        return setErrorMessage(data.message);
       })
       .catch(() =>
-        setResponseMessage(SERVICE_UNAVAILABLE_ERROR)
+        setErrorMessage(SERVICE_UNAVAILABLE_ERROR)
       )
   }, []);
 
@@ -39,7 +43,7 @@ export default function OrganizationProfile() {
 
     let payload = {}
     new FormData(e.target).forEach((value, key) => {
-      if (key === "representativeName" )
+      if (key === "representativeName")
         return;
       payload[key] = value;
     });
@@ -55,8 +59,11 @@ export default function OrganizationProfile() {
     fetch(`${BASE_API}/organization`, requestUpdateOrganization)
       .then(async response => {
         let data = await response.json();
-        if (response.ok) 
-          return setResponseMessage(data.message)
+        if (response.ok) {
+          setResponseMessage(data.message);
+          setErrorMessage(null);
+          return;
+        }
         setResponseMessage(data.message);
       })
       .catch(() =>
@@ -67,17 +74,26 @@ export default function OrganizationProfile() {
   const validatePhone = e => {
     setIsValidPhone(e.target.checkValidity());
   };
-  
+
   const optionsWithDefaultSelection = (value, receivedValue) => {
-    if (value === "UTC+00:00/Greenwich Mean Time and Western European Time" && !receivedValue){
+    if (value === "UTC+00:00/Greenwich Mean Time and Western European Time" && !receivedValue) {
       return <option key={value} value={value} selected>{value}</option>
     }
-    if (value === "Draft" && !receivedValue){
+    if (value === "Draft" && !receivedValue) {
       return <option key={value} value={value} selected>{value}</option>
     }
     return <option key={value} value={value}>{value}</option>
   };
-  return (
+
+  return errorMessage ?
+    <div className="container-fluid">
+      <div className="top">
+        <h1>
+          {errorMessage}
+        </h1>
+      </div>
+    </div> :
+    (
       <div className="container" id="organizationProfile">
         <div className="row mb-5">
           <div className="col-lg-12 text-center">
@@ -91,11 +107,11 @@ export default function OrganizationProfile() {
                 <p className="input-control">
                   <label id="representativeName">Representative name :</label>
                   <input className="field"
-                    type="text"
-                    aria-labelledby="representativeName"
-                    name="representativeName"
-                    defaultValue={organizationProfile.representative_name}
-                    disabled
+                         type="text"
+                         aria-labelledby="representativeName"
+                         name="representativeName"
+                         defaultValue={organization.representative_name}
+                         disabled
                   />
                 </p>
               </form-group>
@@ -104,11 +120,11 @@ export default function OrganizationProfile() {
                 <p className="input-control">
                   <label id="representativeDepartment">Representative Department :</label>
                   <input className="field"
-                    type="text"
-                    aria-labelledby="representativeDepartment"
-                    name="representative_department"
-                    defaultValue={organizationProfile.representative_department}
-                    required
+                         type="text"
+                         aria-labelledby="representativeDepartment"
+                         name="representative_department"
+                         defaultValue={organization.representative_department}
+                         required
                   />
                 </p>
               </form-group>
@@ -117,11 +133,11 @@ export default function OrganizationProfile() {
                 <p className="input-control">
                   <label id="name">Organization Name :</label>
                   <input className="field"
-                    type="text"
-                    aria-labelledby="name"
-                    name="name"
-                    defaultValue={organizationProfile.organization_name}
-                    required
+                         type="text"
+                         aria-labelledby="name"
+                         name="name"
+                         defaultValue={organization.organization_name}
+                         required
                   />
                 </p>
               </form-group>
@@ -130,11 +146,11 @@ export default function OrganizationProfile() {
                 <p className="input-control">
                   <label id="email">Email :</label>
                   <input className="field"
-                    type="email"
-                    aria-labelledby="email"
-                    name="email"
-                    defaultValue={organizationProfile.email}
-                    required
+                         type="email"
+                         aria-labelledby="email"
+                         name="email"
+                         defaultValue={organization.email}
+                         required
                   />
                 </p>
               </form-group>
@@ -143,10 +159,10 @@ export default function OrganizationProfile() {
                 <p className="input-control">
                   <label id="about">About the organization :</label>
                   <input className="field"
-                    type="text"
-                    aria-labelledby="about"
-                    name="about"
-                    defaultValue={organizationProfile.about}
+                         type="text"
+                         aria-labelledby="about"
+                         name="about"
+                         defaultValue={organization.about}
                   />
                 </p>
               </form-group>
@@ -155,11 +171,11 @@ export default function OrganizationProfile() {
                 <p className="input-control">
                   <label id="address">Organization Address :</label>
                   <input className="field"
-                    type="text"
-                    aria-labelledby="address"
-                    name="address"
-                    defaultValue={organizationProfile.address}
-                    required
+                         type="text"
+                         aria-labelledby="address"
+                         name="address"
+                         defaultValue={organization.address}
+                         required
                   />
                 </p>
               </form-group>
@@ -168,11 +184,11 @@ export default function OrganizationProfile() {
                 <p className="input-control">
                   <label id="website">Website :</label>
                   <input className="field"
-                    type="url"
-                    aria-labelledby="website"
-                    name="website"
-                    defaultValue={organizationProfile.website}
-                    required
+                         type="url"
+                         aria-labelledby="website"
+                         name="website"
+                         defaultValue={organization.website}
+                         required
                   />
                 </p>
               </form-group>
@@ -181,10 +197,10 @@ export default function OrganizationProfile() {
                 <p className="input-control">
                   <label htmlFor="timezone">Timezone</label>
                   <select className="custom-select" name="timezone" id="timezone">
-                    <option 
-                    defaultValue="UTC+00:00/Greenwich Mean Time and Western European Time">{organizationProfile.timezone}
+                    <option
+                      defaultValue="UTC+00:00/Greenwich Mean Time and Western European Time">{organization.timezone}
                     </option>
-                      {TIMEZONES.map((timezone) => optionsWithDefaultSelection(timezone, organizationProfile.timezone))}
+                    {TIMEZONES.map((timezone) => optionsWithDefaultSelection(timezone, organization.timezone))}
                   </select>
                 </p>
               </div>
@@ -192,11 +208,11 @@ export default function OrganizationProfile() {
                 <p className="input-control">
                   <label htmlFor="phone">Phone :</label>
                   <input className="field"
-                    type="text"
-                    name="phone"
-                    defaultValue={organizationProfile.phone}
-                    pattern="^[0-9\s\-\+]+$"
-                    onChange={validatePhone}
+                         type="text"
+                         name="phone"
+                         defaultValue={organization.phone}
+                         pattern="^[0-9\s\-\+]+$"
+                         onChange={validatePhone}
                   />
                 </p>
                 {!isValidPhone && (
@@ -210,25 +226,26 @@ export default function OrganizationProfile() {
                 <p className="input-control">
                   <label htmlFor="status">Status</label>
                   <select className="custom-select" name="status" id="status">
-                    <option 
-                    defaultValue="Draft">{organizationProfile.status}
+                    <option
+                      defaultValue="Draft">{organization.status}
                     </option>
-                      {STATUS.map((status) => optionsWithDefaultSelection(status, organizationProfile.status))}
+                    {STATUS.map((status) => optionsWithDefaultSelection(status, organization.status))}
                   </select>
                 </p>
               </div>
-              
+
               <div><br></br></div>
               <div>
-                  {responseMessage && <span className="error" name="response" aria-label="response" role="alert">{responseMessage}</span>}
+                {responseMessage &&
+                <span className="error" name="response" aria-label="response" role="alert">{responseMessage}</span>}
               </div>
               <div className="row">
                 <div className="col-sm-6 offset-sm-9">
                   <button className="btn btn-success"
-                    variant="success"
-                    type="submit"
-                    name="submit"
-                    value="Save"
+                          variant="success"
+                          type="submit"
+                          name="submit"
+                          value="Save"
                   >Save
                   </button>
                 </div>
@@ -237,5 +254,5 @@ export default function OrganizationProfile() {
           </div>
         </div>
       </div>
-  )
+    )
 }

@@ -10,7 +10,7 @@ import PersonalBackground from "./myspace/PersonalBackground";
 import Organizations from "./organizations/Organizations";
 import OtherOrganizationProfile from "./organizations/OtherOrganizationProfile";
 import OrganizationPortfolio from "./myorganization/OrganizationPortfolio";
-import OrganizationProfile from "./myorganization/OrganizationProfile";
+import EditOrganization from "./myorganization/EditOrganization";
 import Register from "./register/Register";
 import Login from "./login/Login";
 import ProtectedRoute from "./ProtectedRoute";
@@ -65,7 +65,7 @@ export default function Routes() {
           </ProtectedRoute>
           <ProtectedRoute
             exact path="/organization-profile">
-            <OrganizationProfile />
+            <EditOrganization />
           </ProtectedRoute>
           <Route path="/register">
             <Register />

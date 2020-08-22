@@ -2,18 +2,16 @@ import React, {createContext, useEffect, useState} from "react";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext({
-  user: null, 
-  isAuth: false, 
-  login: () => {}, 
-  logout: () => {}, 
-  isRepresentative: () => {},
+  user: null,
+  isAuth: false,
+  login: () => {},
+  logout: () => {},
 });
 
 function AuthProvider({ children }) {
   const [isAuth, setIsAuth] = useState(false);
-  const [isRepresentative, setIsRepresentative] = useState(false);
   const [user, setUser] = useState(null);
-  
+
   useEffect(
     () => {
       const userCookie = Cookies.get('user');
@@ -31,9 +29,7 @@ function AuthProvider({ children }) {
       Cookies.set("user", user);
       Cookies.set("access_token", token["access_token"]);
       Cookies.set("access_expiry", token["access_expiry"]);
-      Cookies.set("is_organization_representative", token["is_organization_representative"]);
       setUser(user);
-      setIsRepresentative(token["is_organization_representative"]);
     }
   };
 
@@ -43,7 +39,6 @@ function AuthProvider({ children }) {
     Cookies.remove("access_expiry");
     Cookies.remove("is_organization_representative");
     setUser(null);
-    setIsRepresentative(null);
   };
 
   return (
@@ -55,7 +50,6 @@ function AuthProvider({ children }) {
         access_expiry: Cookies.get("access_expiry"),
         login: login,
         logout: logout,
-        isRepresentative: isRepresentative
       }}
     >
       {children}
