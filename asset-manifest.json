@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/bridge-in-tech-web/static/css/main.b3a8e8fd.chunk.css",
-    "main.js": "/bridge-in-tech-web/static/js/main.c5812aa0.chunk.js",
-    "main.js.map": "/bridge-in-tech-web/static/js/main.c5812aa0.chunk.js.map",
+    "main.js": "/bridge-in-tech-web/static/js/main.ecac8e87.chunk.js",
+    "main.js.map": "/bridge-in-tech-web/static/js/main.ecac8e87.chunk.js.map",
     "runtime-main.js": "/bridge-in-tech-web/static/js/runtime-main.0076437f.js",
     "runtime-main.js.map": "/bridge-in-tech-web/static/js/runtime-main.0076437f.js.map",
     "static/js/2.e8085f24.chunk.js": "/bridge-in-tech-web/static/js/2.e8085f24.chunk.js",
     "static/js/2.e8085f24.chunk.js.map": "/bridge-in-tech-web/static/js/2.e8085f24.chunk.js.map",
     "index.html": "/bridge-in-tech-web/index.html",
-    "precache-manifest.7a1af3925ddd345f7b23a374723e5127.js": "/bridge-in-tech-web/precache-manifest.7a1af3925ddd345f7b23a374723e5127.js",
+    "precache-manifest.dfa42fcdf69c7011f0cbc7dfa06a5e85.js": "/bridge-in-tech-web/precache-manifest.dfa42fcdf69c7011f0cbc7dfa06a5e85.js",
     "service-worker.js": "/bridge-in-tech-web/service-worker.js",
     "static/css/main.b3a8e8fd.chunk.css.map": "/bridge-in-tech-web/static/css/main.b3a8e8fd.chunk.css.map",
     "static/js/2.e8085f24.chunk.js.LICENSE.txt": "/bridge-in-tech-web/static/js/2.e8085f24.chunk.js.LICENSE.txt",
@@ -32,6 +32,6 @@
     "static/js/runtime-main.0076437f.js",
     "static/js/2.e8085f24.chunk.js",
     "static/css/main.b3a8e8fd.chunk.css",
-    "static/js/main.c5812aa0.chunk.js"
+    "static/js/main.ecac8e87.chunk.js"
   ]
 }

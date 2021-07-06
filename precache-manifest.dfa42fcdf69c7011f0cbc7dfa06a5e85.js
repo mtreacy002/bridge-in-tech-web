@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c8b166b0cd1b8bb59f9f02e02fca1b15",
+    "revision": "bedd361a2818832efd41f5d6319e45be",
     "url": "/bridge-in-tech-web/index.html"
   },
   {
-    "revision": "cc359b4c161c4be4d465",
+    "revision": "20f3115b214da4172260",
     "url": "/bridge-in-tech-web/static/css/main.b3a8e8fd.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bridge-in-tech-web/static/js/2.e8085f24.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "cc359b4c161c4be4d465",
-    "url": "/bridge-in-tech-web/static/js/main.c5812aa0.chunk.js"
+    "revision": "20f3115b214da4172260",
+    "url": "/bridge-in-tech-web/static/js/main.ecac8e87.chunk.js"
   },
   {
     "revision": "387a0f0da9d0a288f4c3",
